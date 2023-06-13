@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "d610b617-de5d-4159-9851-8d90e7298516",
+		"name": "Postman Library API v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27905235",
+		"_collection_link": "https://www.postman.com/druss705/workspace/postman-api-fundamentals-student-expert/collection/27905235-d610b617-de5d-4159-9851-8d90e7298516?action=share&creator=27905235&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GET Requests",
+			"item": [
+				{
+					"name": "Get All Books",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/*\r",
+									"// Get the response body as JSON\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"// Initialize an empty array to store unique genre values\r",
+									"const uniqueGenres = [];\r",
+									"\r",
+									"// Loop through each book in the response\r",
+									"jsonData.forEach((book) => {\r",
+									"  const genre = book.genre;\r",
+									"\r",
+									"  // Check if the genre value is not already in the uniqueGenres array\r",
+									"  if (!uniqueGenres.includes(genre)) {\r",
+									"    // Add the genre to the uniqueGenres array\r",
+									"    uniqueGenres.push(genre);\r",
+									"  }\r",
+									"});\r",
+									"\r",
+									"// Set the \"uniqueGenres\" environment variable to the array of unique genre values\r",
+									"pm.environment.set(\"uniqueGenres\", JSON.stringify(uniqueGenres));\r",
+									"*/\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}",
+							"host": [
+								"{{booksURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by Genre",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Your genre value matches the chosen genre in the request.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.genre).to.eql(pm.globals.genre);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?genre={{genre}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "{{genre}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Your author value matches the chosen author in the search value of the request.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.author).to.eql(pm.environment.author);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?search={{author}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "{{author}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?search={{title}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "{{title}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by Checked Out",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?checkedOut={{checkedOut}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "checkedOut",
+									"value": "{{checkedOut}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by Genre and Author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?genre={{genre2}}&search={{author2}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "{{genre2}}"
+								},
+								{
+									"key": "search",
+									"value": "{{author2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by Author and Checked Out",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}?search={{author}}&checkedOut=false",
+							"host": [
+								"{{booksURL}}"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "{{author}}"
+								},
+								{
+									"key": "checkedOut",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}/{{id}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "POST Requests",
+			"item": [
+				{
+					"name": "Add a Book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Stores latest book id as the current id value\r",
+									"\r",
+									"const id = pm.response.json().id\r",
+									"pm.environment.set(\"id\", id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"The Color Purple\",\r\n    \"author\": \"Alice Walker\",\r\n    \"genre\": \"novel\",\r\n    \"yearPublished\": \"1982\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{booksURL}}",
+							"host": [
+								"{{booksURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "DELETE Requests",
+			"item": [
+				{
+					"name": "Delete a Book by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{booksURL}}/{{id}}",
+							"host": [
+								"{{booksURL}}"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Book by  non-existent id (negative)",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATCH Requests",
+			"item": [
+				{
+					"name": "Checkout a Book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"checkedOut\": true \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{booksURL}}/:id",
+							"host": [
+								"{{booksURL}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Skill Check",
+			"item": [
+				{
+					"name": "Skill Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Stores actorName value from the response body as the favoriteActor collection variable\r",
+									"const favoriteActor = pm.response.json().data.actorName\r",
+									"pm.collectionVariables.set(\"favoriteActor\", favoriteActor)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "skillcheck",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "student-expert",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"actorName\": \"Daniel Kaluuya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{postmanEchoBaseURL}}/{{post}}?movieName=Get Out",
+							"host": [
+								"{{postmanEchoBaseURL}}"
+							],
+							"path": [
+								"{{post}}"
+							],
+							"query": [
+								{
+									"key": "movieName",
+									"value": "Get Out"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "postmanrulz",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//For Dynamic genre handling",
+					"// Define an array of genres",
+					"const genres = [\"fiction\", \"Self development\", \"Conscience\", \"REX\", \"romance\", \"programming\", \"autobiography\", \"tales\", \"Modernist novel\", \"adventure novel\", \"novel\", \"Business\", \"Academia\", \"self-help\", \"Education\", \"Personal finance\", \"finance\", \"Dark novel\", \"Accion\", \"cyber-security\", \"non-fiction\", \"Poema épico\", \"Novela\", \"Biography\", \"Dystopian Fiction\", \"Fiction\", \"technical\", \"history\", \"Romance\", \"Thriller\", \"Infantil\", \"Self Help\", \"Suspenso\", \"tragedy\", \"Self-help book\", \"Classic\", \"Crime Drama\", \"poetry\", \"Non-fiction\",\" Philosophy\", \"real\", \"education\", \"action\", \"Cosmology\", \"Strategy\", \"science\", \"Technology\", \"Manifesto\", \"Historical fiction\", \"Politics\", \"computers\", \"philosophy\"];",
+					"",
+					"// Generate a random index to select a genre from the array",
+					"const randomIndex = Math.floor(Math.random() * genres.length);",
+					"",
+					"// Get the random genre value",
+					"const randomGenre = genres[randomIndex];",
+					"",
+					"// Set the \"genre\" request variable to the random genre value",
+					"pm.variables.set(\"genre\", randomGenre);",
+					"",
+					"//For Dynamic checkOut value",
+					"// Get the current value of the variable",
+					"const currentValue = pm.globals.get(\"checkedOut\");",
+					"",
+					"// Set the variable to the opposite value",
+					"if(pm.globals.get(\"checkedOut\", true))",
+					"{",
+					"    pm.globals.set(\"checkedOut\", false);",
+					"}",
+					"else",
+					"{",
+					"    pm.globals.set(\"checkedOut\", true);",
+					"}",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 3 secs\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
